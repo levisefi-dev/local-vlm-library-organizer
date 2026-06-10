@@ -8,7 +8,7 @@ A production-grade, 100% offline, privacy-first pipeline designed to automatical
 
 The core philosophy of this system is **resource optimization via hierarchical fallbacks**. High-compute visual inference is treated as a final resort, ensuring maximum execution speed and minimum VRAM usage across large batches of documents.
 
-```text
+
 [ Raw Document (PDF/EPUB) ]
            │
            ▼
