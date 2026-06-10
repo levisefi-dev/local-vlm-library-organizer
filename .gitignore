@@ -1,0 +1,11 @@
+# Ignorar archivos de libros y documentos
+*.pdf
+*.epub
+
+# Ignorar base de datos local y variables de entorno
+memoria_categorias.json
+.env
+
+# Ignorar carpetas generadas por el sistema operativo
+__pycache__/
+.DS_Store
