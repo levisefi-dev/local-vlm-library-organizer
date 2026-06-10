@@ -35,22 +35,23 @@ The core philosophy of this system is **resource optimization via hierarchical f
 │  (Failsafe Preservation)               │
 └────────────────────────────────────────┘
 ```
-1. Phase 1 & 1.5: Deterministic Extraction (Metadata Sourcing)
+
+##1. Phase 1 & 1.5: Deterministic Extraction (Metadata Sourcing)
 Regex Engine: Scans the raw text extraction layer (PyMuPDF for PDFs, BeautifulSoup & ebooklib for EPUBs) utilizing regular expressions to capture standard formatting for international identifiers (ISBN-10, ISBN-13) and pre-print handles (arXiv ID).
 
 Upstream Resolution: If an identifier is found, the system queries the OpenLibrary or arXiv public web APIs. This provides an instant, zero-compute, mathematically exact match for authors, titles, and standard scientific classifications.
 
-2. Phase 2: Local SLM Inference (Textual Context Semantics)
+##2. Phase 2: Local SLM Inference (Textual Context Semantics)
 Context Stream Extraction: If public records are unavailable, the script streams the first 4,000 characters of the document text into an isolated context buffer.
 
 SLM Execution: A local instance of Gemma via the Ollama API processes the context slice with a zero-shot prompt engineered to output strict JSON schemas specifying title, author, and broad academic taxonomies.
 
-3. Phase 3: Local VLM Vision Processing (Pixel-Level OCR)
+##3. Phase 3: Local VLM Vision Processing (Pixel-Level OCR)
 Rasterization Engine: For legacy files, scanned papers, or heavily stylized books where structural text layers are unreadable, the script extracts the first two pages and rasterizes them into standard PNG bytes via fitz.Matrix(2.5, 2.5) scaling.
 
 VLM Visual Inference: The rasterized matrix is base64-encoded and transmitted directly to a local deployment of LLaVA (Vision-Language Model). The model runs deep spatial analysis and optical character recognition (OCR) over the structural elements of the cover page to resolve titles, primary contributors, and thematic domains.
 
-4. Phase 4: Graceful Degradation & Failsafe Guard
+##4. Phase 4: Graceful Degradation & Failsafe Guard
 To prevent destructive updates or silent failures, any document failing all three classification layers defaults to a standardized fallback state (Manual Review), preserving the original file integrity and its original operating system name string.
 
 Core Systems Design Features
@@ -72,29 +73,26 @@ Context Lock Prevention: Rather than leaving file system handles hanging open du
 Resource Safety & Rate-Limiting Overrides: Built-in sleep steps protect the local execution loops from thrashing the host system's GPU/VRAM scheduling queue during heavy batch routines.
 
 Repository & Project Structure
-organizador.py: The core orchestrator managing the multi-tier extraction pipeline, file system transformations, and inference execution loops.
+Organizar.py: The core orchestrator managing the multi-tier extraction pipeline, file system transformations, and inference execution loops.
 
 memoria_categorias.json: Local JSON tracking array storing previously discovered categorization archetypes to prevent folder fragmentation (Ignored via .gitignore in production).
 
 .gitignore: Configured to shield private corporate or academic literature (*.pdf, *.epub) and dynamic data frames from leaking into public commits.
 
-Requirements & Local Deployment
-1. Prerequisites
+##Requirements & Local Deployment
+#1. Prerequisites
 Ensure you have Python 3.10+ and a functional local deployment of Ollama running on your host machine.
 
-2. Dependencies
+#2. Dependencies
 Install the required system libraries:
 
-Bash
 pip install pymupdf ebooklib beautifulsoup4 requests
-3. Model Dependencies
+#3. Model Dependencies
 Pull the necessary language and vision model tags to your local machine:
 
-Bash
 ollama pull gemma
 ollama pull llava
-4. Execution
-Place your unorganized academic documents in the project directory and execute the orchestrator:
+#4. Execution
+Place your unorganized academic documents in the project directory and execute the organizator:
 
-Bash
-python organizador.py
+python Organizar.py
