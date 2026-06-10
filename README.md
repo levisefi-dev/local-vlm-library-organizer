@@ -35,6 +35,8 @@ The core philosophy of this system is **resource optimization via hierarchical f
 │  (Failsafe Preservation)               │
 └────────────────────────────────────────┘
 4. ExecutionPlace your unorganized academic documents in the project directory and execute the orchestrator:Bashpython organizador.py
+
+
 ### 1. Phase 1 & 1.5: Deterministic Extraction (Metadata Sourcing)
 * **Regex Engine:** Scans the raw text extraction layer (`PyMuPDF` for PDFs, `BeautifulSoup` & `ebooklib` for EPUBs) utilizing regular expressions to capture standard formatting for international identifiers (`ISBN-10`, `ISBN-13`) and pre-print handles (`arXiv ID`).
 * **Upstream Resolution:** If an identifier is found, the system queries the OpenLibrary or arXiv public web APIs. This provides an instant, zero-compute, mathematically exact match for authors, titles, and standard scientific classifications.
