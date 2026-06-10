@@ -1,6 +1,3 @@
-Usa el botón de "Copy" en la esquina superior derecha del siguiente bloque para asegurar que no se pierda ningún salto de línea ni formato monoespaciado:
-
-Markdown
 # Local VLM Academic Library Organizer
 
 A production-grade, 100% offline, privacy-first pipeline designed to automatically parse, index, categorize, and organize highly specialized academic literature (PDFs and EPUBs). By leveraging a layered architecture that transitions from deterministic API lookups to local Small Language Models (SLMs) and Vision-Language Models (VLMs), this system eliminates cloud dependencies, rate-limiting constraints, and data leakage risks.
